@@ -1,4 +1,3 @@
-[gemini-code-1790895373055.html](https://github.com/user-attachments/files/32938829/gemini-code-1790895373055.html)
 <!DOCTYPE html>
 <html lang="en" class="dark">
 <head>
