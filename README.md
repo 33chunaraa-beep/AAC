@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blooket Simulator & Don't Look Down Mini Game</title>
+    <title>Blooket 1K Simulator & Multi-Game Arcade</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts -->
@@ -48,9 +48,7 @@
             touch-action: manipulation;
         }
 
-        .font-fredoka {
-            font-family: 'Fredoka', sans-serif;
-        }
+        .font-fredoka { font-family: 'Fredoka', sans-serif; }
 
         /* Aidan Animated Card Effect */
         .aidan-card {
@@ -72,52 +70,11 @@
             to { transform: scale(1.03); filter: brightness(1.25); }
         }
 
-        /* Card Flip Animation */
-        .flip-card {
-            perspective: 1000px;
-        }
-
-        .flip-card-inner {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            text-align: center;
-            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-            transform-style: preserve-3d;
-        }
-
-        .flip-card.flipped .flip-card-inner {
-            transform: rotateY(180deg);
-        }
-
-        .flip-card-front, .flip-card-back {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            -webkit-backface-visibility: hidden;
-            backface-visibility: hidden;
-            border-radius: 1rem;
-        }
-
-        .flip-card-back {
-            transform: rotateY(180deg);
-        }
-
         /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-            height: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #0f172a;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #334155;
-            border-radius: 4px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #475569;
-        }
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: #0f172a; }
+        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #475569; }
 
         /* Rarity Glows */
         .glow-common { box-shadow: 0 0 10px rgba(148, 163, 184, 0.3); }
@@ -133,21 +90,16 @@
             position: relative;
             width: 100%;
             max-width: 800px;
-            height: 600px;
+            height: 550px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            border-radius: 16px;
+            border-radius: 20px;
             overflow: hidden;
             background: linear-gradient(to bottom, #0f2027, #203a43, #2c5364);
             margin: 0 auto;
         }
 
-        #gameCanvas {
-            display: block;
-            width: 100%;
-            height: 100%;
-        }
+        #gameCanvas { display: block; width: 100%; height: 100%; }
 
-        /* HUD Overlay */
         .hud {
             position: absolute;
             top: 15px;
@@ -161,25 +113,19 @@
         }
 
         .hud-card {
-            background: rgba(0, 0, 0, 0.65);
-            backdrop-filter: blur(5px);
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(6px);
             padding: 8px 14px;
             border-radius: 12px;
             border: 1px solid rgba(255, 255, 255, 0.15);
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 600;
         }
 
-        .hud-card span {
-            color: #4ecca3;
-        }
-
-        .hud-card .balance-span {
-            color: #f9d423;
-        }
+        .hud-card span { color: #4ecca3; }
 
         .energy-bar-container {
-            width: 120px;
+            width: 110px;
             height: 10px;
             background: rgba(255, 255, 255, 0.2);
             border-radius: 6px;
@@ -194,57 +140,56 @@
             transition: width 0.1s linear;
         }
 
-        /* Question Modal */
-        #question-modal {
+        /* Question Overlay */
+        .quiz-overlay {
             position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: #16213e;
-            border: 2px solid #0f3460;
-            border-radius: 16px;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(8px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            z-index: 25;
+        }
+
+        .quiz-card {
+            background: #1e293b;
+            border: 2px solid #3b82f6;
+            border-radius: 20px;
             padding: 24px;
-            width: 90%;
-            max-width: 360px;
+            width: 100%;
+            max-width: 440px;
             text-align: center;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.7);
-            display: none;
-            z-index: 10;
-        }
-
-        #question-modal h3 {
-            margin-bottom: 12px;
-            color: #e94560;
-        }
-
-        #question-text {
-            font-size: 20px;
-            margin-bottom: 18px;
-            font-weight: bold;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
         }
 
         .options-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 10px;
+            margin-top: 16px;
         }
 
         .btn-opt {
-            background: #0f3460;
+            background: #334155;
             color: white;
-            border: none;
+            border: 2px solid #475569;
             padding: 12px;
-            border-radius: 8px;
-            font-size: 16px;
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: bold;
             cursor: pointer;
-            transition: background 0.2s;
+            transition: all 0.2s;
         }
 
         .btn-opt:hover {
-            background: #e94560;
+            background: #2563eb;
+            border-color: #60a5fa;
+            transform: translateY(-2px);
         }
 
-        /* Control Panel Button */
         #quiz-btn {
             position: absolute;
             bottom: 20px;
@@ -252,22 +197,18 @@
             background: #e94560;
             color: white;
             border: none;
-            padding: 12px 24px;
-            font-size: 15px;
+            padding: 12px 22px;
+            font-size: 14px;
             font-weight: bold;
             border-radius: 30px;
             cursor: pointer;
             box-shadow: 0 4px 15px rgba(233, 69, 96, 0.4);
-            transition: transform 0.1s, background 0.2s;
+            transition: all 0.2s;
             z-index: 5;
         }
 
-        #quiz-btn:hover {
-            transform: scale(1.05);
-            background: #ff5277;
-        }
+        #quiz-btn:hover { transform: scale(1.05); background: #ff5277; }
 
-        /* Controls Tip */
         .controls-tip {
             position: absolute;
             bottom: 20px;
@@ -275,59 +216,30 @@
             background: rgba(0, 0, 0, 0.6);
             padding: 8px 14px;
             border-radius: 8px;
-            font-size: 13px;
+            font-size: 12px;
             color: #ccc;
             pointer-events: none;
         }
 
-        /* Game Over / Claim Overlay */
-        #claim-screen {
+        /* Claim Overlay */
+        .claim-screen {
             position: absolute;
             inset: 0;
-            background: rgba(15, 15, 26, 0.94);
-            display: none;
+            background: rgba(15, 15, 26, 0.95);
+            display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            z-index: 20;
-        }
-
-        #claim-screen h2 {
-            font-size: 32px;
-            color: #f9d423;
-            margin-bottom: 10px;
-        }
-
-        #claim-screen p {
-            font-size: 16px;
-            margin-bottom: 10px;
-        }
-
-        .claim-btn {
-            background: #4ecca3;
-            color: #111;
-            font-size: 18px;
-            font-weight: bold;
-            border: none;
-            padding: 12px 30px;
-            border-radius: 25px;
-            cursor: pointer;
-            transition: transform 0.2s;
-            margin-top: 15px;
-        }
-
-        .claim-btn:hover {
-            transform: scale(1.08);
+            z-index: 30;
         }
     </style>
 </head>
 <body class="min-h-screen flex flex-col bg-slate-950 text-slate-100 selection:bg-purple-500 selection:text-white">
 
-    <!-- TOP HEADER BAR (COLLAPSIBLE) -->
+    <!-- TOP HEADER BAR -->
     <header class="sticky top-0 z-40 bg-slate-900/90 backdrop-blur-md border-b border-slate-800 px-4 py-3 shadow-lg transition-all duration-300">
         <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
             
-            <!-- Logo & Title -->
             <div class="flex items-center justify-between w-full sm:w-auto gap-3">
                 <div class="flex items-center gap-3">
                     <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-purple-600 to-pink-500 flex items-center justify-center font-fredoka text-2xl font-bold shadow-md shadow-purple-500/20">
@@ -337,27 +249,23 @@
                         <h1 class="font-fredoka text-2xl font-bold bg-gradient-to-r from-purple-400 via-pink-400 to-amber-300 bg-clip-text text-transparent">
                             BLOOKET 1K SIM
                         </h1>
-                        <p id="header-subtitle" class="text-xs text-slate-400 font-semibold">1,000 Blooks • Mini Game • Supreme "Aidan"</p>
+                        <p id="header-subtitle" class="text-xs text-slate-400 font-semibold">1,000 Blooks • 10 Questions / 30-Min Cooldown</p>
                     </div>
                 </div>
 
-                <!-- Collapse Toggle Button -->
                 <button onclick="toggleHeaderCollapse()" class="flex items-center gap-2 bg-slate-800 hover:bg-slate-700 text-slate-300 px-3 py-1.5 rounded-xl font-fredoka text-xs font-bold transition-all border border-slate-700">
                     <span id="header-toggle-text">Collapse</span>
                     <i id="header-toggle-icon" class="fa-solid fa-chevron-up text-xs"></i>
                 </button>
             </div>
 
-            <!-- Global Stats Badges (Collapsible Body) -->
             <div id="header-stats-container" class="flex items-center gap-3 transition-all duration-300">
-                <!-- Tokens Badge -->
                 <div class="flex items-center gap-2 bg-slate-800/90 border border-slate-700/80 px-4 py-1.5 rounded-2xl shadow-inner">
                     <span class="text-xl">🪙</span>
                     <span id="stat-tokens" class="font-fredoka text-xl font-bold text-amber-400">5,000</span>
                     <span class="text-xs text-slate-400 uppercase font-bold">Tokens</span>
                 </div>
 
-                <!-- Unlocked Blooks Badge -->
                 <div class="flex items-center gap-2 bg-slate-800/90 border border-slate-700/80 px-4 py-1.5 rounded-2xl shadow-inner">
                     <span class="text-xl">🎒</span>
                     <div>
@@ -384,7 +292,7 @@
                 <i class="fa-solid me-1 fa-dharmachakra"></i> Hourly Wheel
             </button>
             <button id="nav-minigame" onclick="switchTab('minigame')" class="nav-btn flex items-center gap-2 px-4 py-2 rounded-xl font-fredoka font-bold text-xs sm:text-sm transition-all duration-200 border-b-4 border-slate-800 bg-slate-800 text-slate-300 hover:bg-slate-700">
-                <i class="fa-solid me-1 fa-gamepad"></i> Mini Game
+                <i class="fa-solid me-1 fa-gamepad"></i> Mini Games
             </button>
             <button id="nav-settings" onclick="switchTab('settings')" class="nav-btn flex items-center gap-2 px-3 py-2 rounded-xl font-fredoka font-bold text-xs sm:text-sm transition-all duration-200 border-b-4 border-slate-800 bg-slate-800 text-slate-300 hover:bg-slate-700">
                 <i class="fa-solid fa-gear"></i>
@@ -397,7 +305,6 @@
         
         <!-- ================= TAB 1: SHOP ================= -->
         <section id="tab-shop" class="space-y-6">
-            <!-- Shop Banner & Filter -->
             <div class="bg-gradient-to-r from-purple-900/60 to-slate-900 border border-purple-500/30 rounded-3xl p-6 shadow-xl flex flex-col md:flex-row items-center justify-between gap-4">
                 <div>
                     <h2 class="font-fredoka text-2xl sm:text-3xl font-bold text-white flex items-center gap-2">
@@ -405,7 +312,6 @@
                     </h2>
                     <p class="text-slate-300 text-sm mt-1">Explore 50 themed packs! Pull the mythical 0.001% Supreme Blook: <strong class="text-amber-300">Aidan 👑✨</strong></p>
                 </div>
-                <!-- Search & Filters -->
                 <div class="flex items-center gap-3 w-full md:w-auto">
                     <div class="relative w-full md:w-64">
                         <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400"></i>
@@ -414,16 +320,11 @@
                 </div>
             </div>
 
-            <!-- Packs Grid -->
-            <div id="packs-container" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
-                <!-- Pack cards injected dynamically via JS -->
-            </div>
+            <div id="packs-container" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4"></div>
         </section>
-
 
         <!-- ================= TAB 2: INVENTORY ================= -->
         <section id="tab-inventory" class="hidden space-y-6">
-            <!-- Inventory Toolbar -->
             <div class="bg-slate-900 border border-slate-800 rounded-3xl p-5 shadow-xl space-y-4">
                 <div class="flex flex-col md:flex-row items-center justify-between gap-4">
                     <div>
@@ -433,7 +334,6 @@
                         <p class="text-slate-400 text-sm">Manage, search, and sell duplicate Blooks for tokens.</p>
                     </div>
 
-                    <!-- Action Buttons -->
                     <div class="flex items-center gap-3 w-full md:w-auto">
                         <button onclick="sellAllDuplicates()" class="flex-1 md:flex-none px-4 py-2.5 rounded-xl font-fredoka font-bold text-sm bg-emerald-600 hover:bg-emerald-500 text-white border-b-4 border-emerald-800 active:translate-y-0.5 transition-all shadow-lg flex items-center justify-center gap-2">
                             <i class="fa-solid fa-coins"></i> Sell All Duplicates (<span id="sell-all-val">0</span> 🪙)
@@ -441,17 +341,13 @@
                     </div>
                 </div>
 
-                <!-- Filters Bar -->
                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 pt-2 border-t border-slate-800">
-                    <!-- Search -->
                     <input type="text" id="inv-search" oninput="renderInventory()" placeholder="Search Blook name..." class="bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-sm text-white focus:outline-none focus:border-purple-500">
                     
-                    <!-- Filter Pack -->
                     <select id="inv-filter-pack" onchange="renderInventory()" class="bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-sm text-white focus:outline-none focus:border-purple-500">
                         <option value="ALL">All Packs (50)</option>
                     </select>
 
-                    <!-- Filter Rarity -->
                     <select id="inv-filter-rarity" onchange="renderInventory()" class="bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-sm text-white focus:outline-none focus:border-purple-500">
                         <option value="ALL">All Rarities</option>
                         <option value="Common">Common</option>
@@ -464,7 +360,6 @@
                         <option value="Supreme">Supreme (Aidan)</option>
                     </select>
 
-                    <!-- Toggle Lock -->
                     <label class="flex items-center justify-center gap-2 bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-sm font-semibold cursor-pointer text-slate-300 hover:text-white">
                         <input type="checkbox" id="inv-hide-locked" onchange="renderInventory()" class="rounded accent-purple-600 w-4 h-4">
                         Hide Locked Blooks
@@ -472,12 +367,8 @@
                 </div>
             </div>
 
-            <!-- Blooks Grid -->
-            <div id="inventory-container" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 gap-3">
-                <!-- Blook cards injected dynamically via JS -->
-            </div>
+            <div id="inventory-container" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 gap-3"></div>
         </section>
-
 
         <!-- ================= TAB 3: HOURLY WHEEL ================= -->
         <section id="tab-wheel" class="hidden space-y-6">
@@ -489,18 +380,13 @@
                     <p class="text-slate-400 text-sm mt-1">Spin once every hour to win anywhere from <strong class="text-amber-400">1,000 to 1,000,000 Tokens!</strong></p>
                 </div>
 
-                <!-- Canvas Wheel Container -->
                 <div class="relative w-72 h-72 sm:w-80 sm:h-80 mx-auto">
-                    <!-- Wheel Pointer -->
                     <div class="absolute -top-3 left-1/2 -translate-x-1/2 z-20 text-red-500 text-3xl drop-shadow-md">
                         <i class="fa-solid fa-caret-down"></i>
                     </div>
-
-                    <!-- Canvas -->
                     <canvas id="wheel-canvas" width="320" height="320" class="w-full h-full rounded-full shadow-2xl border-4 border-slate-700 bg-slate-950 transition-transform duration-[4000ms] cubic-bezier(0.15, 0.99, 0.18, 0.99)"></canvas>
                 </div>
 
-                <!-- Cooldown & Spin Controls -->
                 <div class="space-y-3">
                     <p id="wheel-status-text" class="font-fredoka text-base font-bold text-sky-400">Wheel is Ready to Spin!</p>
 
@@ -513,88 +399,199 @@
             </div>
         </section>
 
-
-        <!-- ================= TAB 4: MINI GAME ================= -->
+        <!-- ================= TAB 4: MULTI MINI-GAMES ARCADE ================= -->
         <section id="tab-minigame" class="hidden space-y-6">
-            <div class="text-center space-y-2 mb-4">
-                <h2 class="font-fredoka text-3xl font-bold text-white flex items-center justify-center gap-2">
-                    <span>🕹️</span> Don't Look Down
-                </h2>
-                <p class="text-slate-400 text-sm">Climb as high as you can! Earned coins are directly added to your <strong class="text-amber-400">Main Balance</strong>.</p>
+            
+            <!-- GAME SELECTION HUB -->
+            <div id="minigame-hub" class="space-y-6">
+                <div class="text-center space-y-2">
+                    <h2 class="font-fredoka text-3xl font-bold text-white flex items-center justify-center gap-2">
+                        <span>🕹️</span> Arcade Hub (10 Questions Limit)
+                    </h2>
+                    <p class="text-slate-400 text-sm">Once you answer <strong class="text-amber-400">10 questions</strong>, you can't play again until a <strong class="text-red-400">30-minute cooldown</strong> expires!</p>
+                </div>
+
+                <!-- 10 QUESTIONS COUNTER & COOLDOWN STATUS BANNER -->
+                <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4 max-w-xl mx-auto text-center shadow-lg">
+                    <div class="font-fredoka text-xl font-bold text-white flex items-center justify-center gap-2">
+                        <span>❓ Questions Answered:</span>
+                        <span id="question-count-display" class="text-amber-400">0 / 10</span>
+                    </div>
+                    <div id="cooldown-banner-text" class="text-xs text-slate-400 mt-1">
+                        Answer 10 questions to complete your session.
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+                    
+                    <!-- Game 1: Don't Look Down -->
+                    <div class="bg-slate-900 border border-slate-800 hover:border-emerald-500/50 rounded-3xl p-6 flex flex-col justify-between space-y-4 shadow-xl transition-all hover:-translate-y-1">
+                        <div class="space-y-3">
+                            <div class="flex items-center justify-between">
+                                <span class="text-4xl">🧗‍♂️</span>
+                                <span id="dl-play-badge" class="bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 px-3 py-1 rounded-full text-xs font-bold font-fredoka">0/10 Questions • Ready</span>
+                            </div>
+                            <h3 class="font-fredoka text-2xl font-bold text-white">Don't Look Down</h3>
+                            <p class="text-slate-400 text-sm">Climb as high as you can! Answer trivia questions mid-climb to regain jump energy.</p>
+                        </div>
+                        <button id="dl-play-btn" onclick="launchGame('dl-down')" class="w-full py-3 bg-emerald-600 hover:bg-emerald-500 text-white border-b-4 border-emerald-800 font-fredoka font-bold rounded-2xl transition-all">
+                            PLAY DON'T LOOK DOWN 🚀
+                        </button>
+                    </div>
+
+                    <!-- Game 2: Gold Quest -->
+                    <div class="bg-slate-900 border border-slate-800 hover:border-amber-500/50 rounded-3xl p-6 flex flex-col justify-between space-y-4 shadow-xl transition-all hover:-translate-y-1">
+                        <div class="space-y-3">
+                            <div class="flex items-center justify-between">
+                                <span class="text-4xl">👑</span>
+                                <span id="gq-play-badge" class="bg-amber-500/10 border border-amber-500/30 text-amber-400 px-3 py-1 rounded-full text-xs font-bold font-fredoka">0/10 Questions • Ready</span>
+                            </div>
+                            <h3 class="font-fredoka text-2xl font-bold text-white">Gold Quest</h3>
+                            <p class="text-slate-400 text-sm">Answer questions and open mystery treasure chests to rack up maximum gold tokens!</p>
+                        </div>
+                        <button id="gq-play-btn" onclick="launchGame('gold-quest')" class="w-full py-3 bg-amber-500 hover:bg-amber-400 text-slate-950 border-b-4 border-amber-700 font-fredoka font-bold rounded-2xl transition-all">
+                            PLAY GOLD QUEST 🪙
+                        </button>
+                    </div>
+
+                    <!-- Game 3: Crypto Hack -->
+                    <div class="bg-slate-900 border border-slate-800 hover:border-cyan-500/50 rounded-3xl p-6 flex flex-col justify-between space-y-4 shadow-xl transition-all hover:-translate-y-1">
+                        <div class="space-y-3">
+                            <div class="flex items-center justify-between">
+                                <span class="text-4xl">💻</span>
+                                <span id="ch-play-badge" class="bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 px-3 py-1 rounded-full text-xs font-bold font-fredoka">0/10 Questions • Ready</span>
+                            </div>
+                            <h3 class="font-fredoka text-2xl font-bold text-white">Crypto Hack</h3>
+                            <p class="text-slate-400 text-sm">Crack trivia passwords to unlock hack terminals and steal crypto tokens from Blook targets!</p>
+                        </div>
+                        <button id="ch-play-btn" onclick="launchGame('crypto-hack')" class="w-full py-3 bg-cyan-600 hover:bg-cyan-500 text-white border-b-4 border-cyan-800 font-fredoka font-bold rounded-2xl transition-all">
+                            PLAY CRYPTO HACK ⚡
+                        </button>
+                    </div>
+
+                </div>
             </div>
 
-            <!-- Game Container -->
-            <div id="game-container">
-                <canvas id="gameCanvas" width="800" height="600"></canvas>
-
-                <!-- HUD -->
-                <div class="hud">
-                    <div class="hud-card">
-                        <div>Energy</div>
-                        <div class="energy-bar-container">
-                            <div id="energy-bar" class="energy-bar"></div>
+            <!-- ACTIVE GAME VIEWPORT CONTAINER -->
+            <div id="active-game-wrapper" class="hidden space-y-4">
+                <div class="flex items-center justify-between max-w-4xl mx-auto px-2">
+                    <button onclick="returnToGameHub()" class="flex items-center gap-2 px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 font-fredoka font-bold rounded-xl text-sm border border-slate-700 transition-all">
+                        <i class="fa-solid fa-arrow-left"></i> Exit to Arcade Hub
+                    </button>
+                    <div class="flex items-center gap-3">
+                        <span id="active-game-title" class="font-fredoka font-bold text-lg text-amber-400">Game Active</span>
+                        <div class="bg-slate-800 border border-amber-500/50 px-3 py-1 rounded-xl text-amber-400 font-fredoka font-bold text-sm shadow">
+                            ❓ Qs Answered: <span id="hud-qs-count" class="text-white text-base">0/10</span>
                         </div>
                     </div>
-                    <div class="hud-card">
-                        Height: <span id="height-val">0</span>m
-                    </div>
-                    <div class="hud-card">
-                        Run Coins: <span id="coin-val">0</span> 🪙
-                    </div>
-                    <div class="hud-card">
-                        Main Balance: <span id="total-balance-val" class="balance-span">0</span> 🪙
+                </div>
+
+                <!-- 1. DON'T LOOK DOWN VIEW -->
+                <div id="view-dl-down" class="game-view hidden">
+                    <div id="game-container">
+                        <canvas id="gameCanvas" width="800" height="550"></canvas>
+                        <div class="hud">
+                            <div class="hud-card">
+                                <div>Energy</div>
+                                <div class="energy-bar-container">
+                                    <div id="energy-bar" class="energy-bar"></div>
+                                </div>
+                            </div>
+                            <div class="hud-card">Height: <span id="height-val">0</span>m</div>
+                            <div class="hud-card">Coins: <span id="coin-val">0</span> 🪙</div>
+                            <div class="hud-card border-amber-500 text-amber-400">❓ <span class="game-q-display text-white font-bold">0/10</span></div>
+                        </div>
+                        <div class="controls-tip">A / D or ← / →: Move | Space / W: Jump</div>
+                        <button id="quiz-btn" onclick="openQuiz('dl-down')">Earn Energy ⚡</button>
                     </div>
                 </div>
 
-                <!-- Controls tip -->
-                <div class="controls-tip">
-                    <strong>A / D</strong> or <strong>← / →</strong>: Move | <strong>Space / W</strong>: Jump (Double Jump!)
+                <!-- 2. GOLD QUEST VIEW -->
+                <div id="view-gold-quest" class="game-view hidden max-w-2xl mx-auto bg-slate-900 border border-slate-800 rounded-3xl p-6 text-center space-y-6">
+                    <div class="flex justify-between items-center border-b border-slate-800 pb-4">
+                        <span class="font-fredoka font-bold text-slate-400">Round: <span id="gq-round" class="text-white">1</span></span>
+                        <span class="font-fredoka font-bold text-amber-400 text-xl">Gold: <span id="gq-gold">0</span> 🪙</span>
+                        <span class="font-fredoka font-bold text-amber-400 text-lg">❓ Qs: <span class="game-q-display text-white">0/10</span></span>
+                    </div>
+
+                    <div id="gq-question-box" class="space-y-4">
+                        <h3 id="gq-question-text" class="font-fredoka text-xl text-white">Question...</h3>
+                        <div id="gq-options" class="grid grid-cols-2 gap-3 max-w-md mx-auto"></div>
+                    </div>
+
+                    <div id="gq-chest-box" class="hidden space-y-4">
+                        <h3 class="font-fredoka text-2xl text-amber-300 font-bold">Pick a Chest Quick!</h3>
+                        <div class="grid grid-cols-3 gap-4">
+                            <button onclick="openChest(0)" class="p-6 bg-slate-950 hover:bg-slate-800 border-2 border-amber-500/50 rounded-2xl text-5xl transition-all transform hover:scale-105">📦</button>
+                            <button onclick="openChest(1)" class="p-6 bg-slate-950 hover:bg-slate-800 border-2 border-amber-500/50 rounded-2xl text-5xl transition-all transform hover:scale-105">📦</button>
+                            <button onclick="openChest(2)" class="p-6 bg-slate-950 hover:bg-slate-800 border-2 border-amber-500/50 rounded-2xl text-5xl transition-all transform hover:scale-105">📦</button>
+                        </div>
+                    </div>
                 </div>
 
-                <!-- Get Energy Button -->
-                <button id="quiz-btn" onclick="openQuiz()">Earn Energy ⚡</button>
+                <!-- 3. CRYPTO HACK VIEW -->
+                <div id="view-crypto-hack" class="game-view hidden max-w-2xl mx-auto bg-slate-900 border border-slate-800 rounded-3xl p-6 text-center space-y-6">
+                    <div class="flex justify-between items-center border-b border-slate-800 pb-4">
+                        <span class="font-fredoka font-bold text-slate-400">Round: <span id="ch-round" class="text-white">1</span></span>
+                        <span class="font-fredoka font-bold text-cyan-400 text-xl">Crypto: <span id="ch-crypto">0</span> ⚡</span>
+                        <span class="font-fredoka font-bold text-amber-400 text-lg">❓ Qs: <span class="game-q-display text-white">0/10</span></span>
+                    </div>
 
-                <!-- Quiz Modal -->
-                <div id="question-modal">
-                    <h3>Answer to Gain Energy!</h3>
-                    <div id="question-text">5 + 7 = ?</div>
-                    <div class="options-grid" id="options-grid"></div>
+                    <div id="ch-question-box" class="space-y-4">
+                        <h3 id="ch-question-text" class="font-fredoka text-xl text-white">Question...</h3>
+                        <div id="ch-options" class="grid grid-cols-2 gap-3 max-w-md mx-auto"></div>
+                    </div>
+
+                    <div id="ch-hack-box" class="hidden space-y-4">
+                        <h3 class="font-fredoka text-2xl text-cyan-300 font-bold">Hack a Target!</h3>
+                        <div id="ch-targets" class="grid grid-cols-3 gap-3"></div>
+                    </div>
                 </div>
 
-                <!-- Claim Screen -->
-                <div id="claim-screen">
-                    <h2>Climb Finished!</h2>
-                    <p>Peak Altitude Reached: <span id="final-height">0</span>m</p>
-                    <p>Coins Earned This Run: <strong id="final-coins" style="color: #4ecca3;">0</strong> 🪙</p>
-                    <p>New Main Balance: <strong id="new-total-coins" style="color: #f9d423;">0</strong> 🪙</p>
-                    <button class="claim-btn" onclick="resetGame()">Play Again</button>
+            </div>
+
+            <!-- SHARED QUIZ OVERLAY MODAL -->
+            <div id="quiz-modal" class="quiz-overlay hidden">
+                <div class="quiz-card">
+                    <h3 class="font-fredoka text-xl font-bold text-amber-400 mb-2">Answer to Gain Energy!</h3>
+                    <div id="shared-question-text" class="font-fredoka text-2xl font-bold text-white mb-4">5 + 7 = ?</div>
+                    <div class="options-grid" id="shared-options-grid"></div>
                 </div>
             </div>
+
+            <!-- SHARED CLAIM / GAME OVER OVERLAY -->
+            <div id="claim-screen" class="claim-screen hidden">
+                <h2 id="claim-title-text" class="font-fredoka text-3xl font-bold text-amber-400 mb-2">🚫 10 Questions Reached!</h2>
+                <p class="text-slate-300 text-base mb-1">Total Tokens Earned:</p>
+                <p id="claim-tokens-val" class="font-fredoka text-4xl font-extrabold text-emerald-400 mb-2">+0 🪙</p>
+                <p class="text-xs text-red-400 font-semibold mb-6">30-minute cooldown timer is now active.</p>
+                <button onclick="returnToGameHub()" class="px-8 py-3 rounded-2xl font-fredoka font-bold text-lg bg-emerald-500 hover:bg-emerald-400 text-slate-950 border-b-4 border-emerald-700 active:translate-y-0.5 transition-all">
+                    Collect Tokens & Exit
+                </button>
+            </div>
+
         </section>
 
-
-        <!-- ================= TAB 5: SETTINGS & OPTIONS ================= -->
+        <!-- ================= TAB 5: SETTINGS ================= -->
         <section id="tab-settings" class="hidden max-w-xl mx-auto space-y-6">
             <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 shadow-xl space-y-6">
                 <h2 class="font-fredoka text-2xl font-bold text-white border-b border-slate-800 pb-3">⚙️ Game Settings & Reset</h2>
                 
-                <!-- Audio Toggle -->
                 <div class="flex items-center justify-between p-4 bg-slate-950 rounded-2xl border border-slate-800">
                     <div>
-                        <h3 class="font-fredoka font-bold text-white">Sound Effects (Web Audio API)</h3>
-                        <p class="text-xs text-slate-400">Enable or disable game sound effects</p>
+                        <h3 class="font-fredoka font-bold text-white">Sound Effects</h3>
+                        <p class="text-xs text-slate-400">Enable or disable sound synth</p>
                     </div>
                     <button id="toggle-sound-btn" onclick="toggleSound()" class="px-4 py-2 rounded-xl font-fredoka font-bold bg-purple-600 text-white">
                         🔊 ON
                     </button>
                 </div>
 
-                <!-- Reset Game Progress -->
                 <div class="p-4 bg-red-950/30 border border-red-500/30 rounded-2xl space-y-3">
                     <h3 class="font-fredoka font-bold text-red-400">Reset Save Data</h3>
-                    <p class="text-xs text-slate-400">Clears all tokens, inventory, and spin history back to default state.</p>
+                    <p class="text-xs text-slate-400">Clears all tokens, inventory, play limits, and spin history back to default state.</p>
                     <button onclick="confirmResetModal()" class="px-4 py-2 rounded-xl font-fredoka font-bold bg-red-600 hover:bg-red-500 text-white border-b-4 border-red-800">
-                        🗑️ Reset Entire Game
+                        🗑 Reset Entire Game
                     </button>
                 </div>
             </div>
@@ -605,19 +602,13 @@
     <!-- MODAL 1: PACK OPENING & SUMMARY MODAL -->
     <div id="modal-pack-open" class="fixed inset-0 z-50 hidden bg-slate-950/90 backdrop-blur-md flex items-center justify-center p-4">
         <div class="bg-slate-900 border-2 border-purple-500/50 w-full max-w-2xl rounded-3xl p-6 sm:p-8 text-center shadow-2xl relative space-y-6 max-h-[90vh] overflow-y-auto">
-            
-            <!-- Title -->
             <div id="pack-open-title-container">
                 <h2 id="pack-open-title" class="font-fredoka text-2xl sm:text-3xl font-bold text-white">Opening Pack...</h2>
                 <p id="pack-open-subtitle" class="text-slate-400 text-sm">Flipping cards!</p>
             </div>
 
-            <!-- Display Single or Mass Cards Container -->
-            <div id="pack-cards-display" class="flex flex-wrap items-center justify-center gap-4 py-4 min-h-[220px]">
-                <!-- Dynamic cards injected here -->
-            </div>
+            <div id="pack-cards-display" class="flex flex-wrap items-center justify-center gap-4 py-4 min-h-[220px]"></div>
 
-            <!-- Action buttons -->
             <div class="flex items-center justify-center gap-3 pt-2">
                 <button id="pack-again-btn" class="px-6 py-3 rounded-2xl font-fredoka font-bold text-base bg-purple-600 hover:bg-purple-500 text-white border-b-4 border-purple-800 active:translate-y-0.5 transition-all shadow-lg">
                     Open Again
@@ -629,7 +620,7 @@
         </div>
     </div>
 
-    <!-- MODAL 2: Aidan Ali SUPREME PULL CELEBRATION MODAL -->
+    <!-- MODAL 2: AIDAN SUPREME PULL CELEBRATION MODAL -->
     <div id="modal-aidan" class="fixed inset-0 z-50 hidden bg-black/95 backdrop-blur-xl flex items-center justify-center p-4">
         <div class="aidan-card w-full max-w-lg rounded-3xl p-8 text-center shadow-2xl space-y-6 text-white relative">
             <div class="animate-bounce text-6xl">👑✨</div>
@@ -650,14 +641,12 @@
         </div>
     </div>
 
-    <!-- CUSTOM TOAST NOTIFICATION CONTAINER -->
     <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 pointer-events-none"></div>
 
     <script>
         // --- ACTIVE TAB TRACKING ---
         let activeTab = 'shop';
 
-        // --- HEADER COLLAPSE TOGGLE ---
         function toggleHeaderCollapse() {
             const stats = document.getElementById("header-stats-container");
             const subtitle = document.getElementById("header-subtitle");
@@ -712,7 +701,7 @@
             { id: 19, name: "Steampunk", icon: "⚙️", cost: 1800, color: "from-amber-900 to-stone-900" },
             { id: 20, name: "Pirates", icon: "🏴‍☠", cost: 2000, color: "from-stone-800 to-red-950" },
             { id: 21, name: "Spooky", icon: "🎃", cost: 2000, color: "from-orange-800 to-purple-950" },
-            { id: 22, name: "Winter", icon: "❄️", cost: 2200, color: "from-sky-700 to-indigo-950" },
+            { id: 22, name: "Winter", icon: "❄", cost: 2200, color: "from-sky-700 to-indigo-950" },
             { id: 23, name: "Galaxy", icon: "🌠", cost: 2200, color: "from-purple-900 to-black" },
             { id: 24, name: "Neon", icon: "🪩", cost: 2500, color: "from-fuchsia-800 to-cyan-900" },
             { id: 25, name: "Magic", icon: "🪄", cost: 2500, color: "from-indigo-800 to-purple-950" },
@@ -800,20 +789,22 @@
         });
 
         // --- GAME STATE ---
+        const COOLDOWN_DURATION_MS = 30 * 60 * 1000; // 30 minutes in milliseconds
+
         let gameState = {
             tokens: 5000,
             inventory: {},
             lastSpinTimestamp: null,
-            soundEnabled: true
+            soundEnabled: true,
+            questionsAnswered: 0,
+            cooldownUntil: 0
         };
 
         // --- WEB AUDIO API SYNTHESIZER ---
         let audioCtx = null;
 
         function initAudio() {
-            if (!audioCtx) {
-                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-            }
+            if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
         }
 
         function playSound(type) {
@@ -824,7 +815,6 @@
                 const gain = audioCtx.createGain();
                 osc.connect(gain);
                 gain.connect(audioCtx.destination);
-
                 const now = audioCtx.currentTime;
 
                 if (type === 'click') {
@@ -835,13 +825,6 @@
                     gain.gain.linearRampToValueAtTime(0.01, now + 0.08);
                     osc.start(now);
                     osc.stop(now + 0.08);
-                } else if (type === 'spinTick') {
-                    osc.type = 'triangle';
-                    osc.frequency.setValueAtTime(600, now);
-                    gain.gain.setValueAtTime(0.08, now);
-                    gain.gain.linearRampToValueAtTime(0.01, now + 0.04);
-                    osc.start(now);
-                    osc.stop(now + 0.04);
                 } else if (type === 'pullNormal') {
                     osc.type = 'sine';
                     osc.frequency.setValueAtTime(300, now);
@@ -859,48 +842,33 @@
                     gain.gain.linearRampToValueAtTime(0.01, now + 0.35);
                     osc.start(now);
                     osc.stop(now + 0.35);
-                } else if (type === 'aidanFanfare') {
-                    const notes = [523.25, 659.25, 783.99, 1046.50, 1318.51, 1567.98];
-                    notes.forEach((freq, idx) => {
-                        const subOsc = audioCtx.createOscillator();
-                        const subGain = audioCtx.createGain();
-                        subOsc.connect(subGain);
-                        subGain.connect(audioCtx.destination);
-                        subOsc.frequency.setValueAtTime(freq, now + idx * 0.1);
-                        subGain.gain.setValueAtTime(0.3, now + idx * 0.1);
-                        subGain.gain.linearRampToValueAtTime(0.01, now + idx * 0.1 + 0.4);
-                        subOsc.start(now + idx * 0.1);
-                        subOsc.stop(now + idx * 0.1 + 0.4);
-                    });
                 }
             } catch (e) {}
         }
 
         function loadState() {
-            const saved = localStorage.getItem("blooket_sim_1k_v1");
+            const saved = localStorage.getItem("blooket_sim_1k_v2");
             if (saved) {
-                try {
-                    gameState = { ...gameState, ...JSON.parse(saved) };
-                } catch (e) {
-                    console.error("Failed to parse save state", e);
-                }
+                try { 
+                    const parsed = JSON.parse(saved);
+                    gameState = { ...gameState, ...parsed };
+                } catch (e) {}
             }
             updateGlobalHeader();
+            updateArcadeHubUI();
         }
 
         function saveState() {
-            localStorage.setItem("blooket_sim_1k_v1", JSON.stringify(gameState));
+            localStorage.setItem("blooket_sim_1k_v2", JSON.stringify(gameState));
             updateGlobalHeader();
+            updateArcadeHubUI();
         }
 
         function updateGlobalHeader() {
             document.getElementById("stat-tokens").innerText = gameState.tokens.toLocaleString();
-            
             const unlockedCount = Object.keys(gameState.inventory).filter(id => gameState.inventory[id] > 0).length;
             document.getElementById("stat-unlocked").innerText = unlockedCount;
-            
-            const pct = ((unlockedCount / 1000) * 100).toFixed(1);
-            document.getElementById("stat-percent").innerText = `(${pct}%)`;
+            document.getElementById("stat-percent").innerText = `(${((unlockedCount / 1000) * 100).toFixed(1)}%)`;
 
             const soundBtn = document.getElementById("toggle-sound-btn");
             if (soundBtn) {
@@ -909,10 +877,117 @@
                     ? "px-4 py-2 rounded-xl font-fredoka font-bold bg-purple-600 text-white"
                     : "px-4 py-2 rounded-xl font-fredoka font-bold bg-slate-800 text-slate-400";
             }
+        }
 
-            const miniGameBal = document.getElementById("total-balance-val");
-            if (miniGameBal) {
-                miniGameBal.innerText = gameState.tokens.toLocaleString();
+        // --- 10 QUESTIONS & 30-MINUTE COOLDOWN MECHANICS ---
+        function isOnCooldown() {
+            if (!gameState.cooldownUntil) return false;
+            if (Date.now() >= gameState.cooldownUntil) {
+                // Cooldown has completed! Reset question count and cooldown timestamp
+                gameState.questionsAnswered = 0;
+                gameState.cooldownUntil = 0;
+                saveState();
+                return false;
+            }
+            return true;
+        }
+
+        function getCooldownRemainingSecs() {
+            if (!isOnCooldown()) return 0;
+            return Math.max(0, Math.ceil((gameState.cooldownUntil - Date.now()) / 1000));
+        }
+
+        function registerQuestionAnswered() {
+            if (isOnCooldown()) return;
+
+            gameState.questionsAnswered = (gameState.questionsAnswered || 0) + 1;
+            
+            if (gameState.questionsAnswered >= 10) {
+                gameState.cooldownUntil = Date.now() + COOLDOWN_DURATION_MS;
+                saveState();
+                triggerCooldownEndGame();
+            } else {
+                saveState();
+            }
+            updateArcadeHubUI();
+        }
+
+        function triggerCooldownEndGame() {
+            showToast("🚫 10 Questions Limit Reached! 30-minute cooldown activated.", "error");
+            if (currentGameMode) {
+                let earned = 0;
+                if (currentGameMode === 'dl-down') earned = dlCoins;
+                else if (currentGameMode === 'gold-quest') earned = gqGold;
+                else if (currentGameMode === 'crypto-hack') earned = chCrypto;
+                finishGameRun(earned, "🚫 10 Questions Limit Reached!");
+            }
+            updateArcadeHubUI();
+        }
+
+        function formatGameTime(totalSeconds) {
+            const m = Math.floor(totalSeconds / 60);
+            const s = totalSeconds % 60;
+            return `${m}m ${s < 10 ? '0' : ''}${s}s`;
+        }
+
+        function updateArcadeHubUI() {
+            const qCount = gameState.questionsAnswered || 0;
+            
+            // Update HUD elements in active game view
+            const gameQDisplays = document.querySelectorAll('.game-q-display');
+            gameQDisplays.forEach(el => el.innerText = `${qCount}/10`);
+            const hudQsCount = document.getElementById("hud-qs-count");
+            if (hudQsCount) hudQsCount.innerText = `${qCount}/10`;
+
+            const qDisplay = document.getElementById("question-count-display");
+            const banner = document.getElementById("cooldown-banner-text");
+
+            if (isOnCooldown()) {
+                const secsStr = formatGameTime(getCooldownRemainingSecs());
+                if (qDisplay) qDisplay.innerHTML = `<span class="text-red-400 font-bold">10 / 10 (LOCKED)</span>`;
+                if (banner) {
+                    banner.innerHTML = `<span class="text-red-400 font-bold">⏱ Cooldown Active! You can play again in ${secsStr}</span>`;
+                }
+
+                ['dl-play-btn', 'gq-play-btn', 'ch-play-btn'].forEach(id => {
+                    const btn = document.getElementById(id);
+                    if (btn) {
+                        btn.classList.add("opacity-50", "cursor-not-allowed");
+                        btn.innerText = `LOCKED (${secsStr}) ⏳`;
+                    }
+                });
+
+                ['dl-play-badge', 'gq-play-badge', 'ch-play-badge'].forEach(id => {
+                    const badge = document.getElementById(id);
+                    if (badge) {
+                        badge.innerText = `Cooldown: ${secsStr}`;
+                        badge.className = "bg-red-500/10 border border-red-500/30 text-red-400 px-3 py-1 rounded-full text-xs font-bold font-fredoka";
+                    }
+                });
+            } else {
+                if (qDisplay) qDisplay.innerText = `${qCount} / 10`;
+                if (banner) {
+                    banner.innerText = `Answer ${10 - qCount} more question(s) to reach the 30-minute lock limit.`;
+                }
+
+                const games = [
+                    { btnId: 'dl-play-btn', badgeId: 'dl-play-badge', title: 'DON\'T LOOK DOWN' },
+                    { btnId: 'gq-play-btn', badgeId: 'gq-play-badge', title: 'GOLD QUEST' },
+                    { btnId: 'ch-play-btn', badgeId: 'ch-play-badge', title: 'CRYPTO HACK' }
+                ];
+
+                games.forEach(g => {
+                    const btn = document.getElementById(g.btnId);
+                    const badge = document.getElementById(g.badgeId);
+                    if (btn) {
+                        btn.classList.remove("opacity-50", "cursor-not-allowed");
+                        btn.innerText = `PLAY ${g.title} 🚀`;
+                    }
+                    if (badge) {
+                        badge.innerText = `${qCount}/10 Questions • Ready`;
+                        badge.className = "bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 px-3 py-1 rounded-full text-xs font-bold font-fredoka";
+                    }
+                });
             }
         }
 
@@ -922,16 +997,12 @@
             toast.className = `px-4 py-3 rounded-2xl font-fredoka font-bold text-sm shadow-xl flex items-center gap-2 border transition-all duration-300 pointer-events-auto transform translate-y-2 opacity-0 ${
                 type === 'success' ? 'bg-emerald-900 border-emerald-500 text-emerald-200' :
                 type === 'error' ? 'bg-red-900 border-red-500 text-red-200' :
-                type === 'aidan' ? 'bg-pink-900 border-amber-400 text-amber-300 animate-pulse' :
                 'bg-slate-800 border-slate-700 text-white'
             }`;
             toast.innerHTML = message;
             container.appendChild(toast);
 
-            setTimeout(() => {
-                toast.classList.remove('translate-y-2', 'opacity-0');
-            }, 10);
-
+            setTimeout(() => toast.classList.remove('translate-y-2', 'opacity-0'), 10);
             setTimeout(() => {
                 toast.classList.add('opacity-0', 'translate-y-2');
                 setTimeout(() => toast.remove(), 300);
@@ -955,9 +1026,10 @@
             if (tabId === 'shop') renderShop();
             if (tabId === 'inventory') renderInventory();
             if (tabId === 'wheel') initWheel();
-            if (tabId === 'minigame') updateGlobalHeader();
+            if (tabId === 'minigame') updateArcadeHubUI();
         }
 
+        // --- SHOP & INVENTORY RENDERING ---
         function renderShop() {
             const container = document.getElementById("packs-container");
             const search = document.getElementById("shop-search").value.toLowerCase();
@@ -965,7 +1037,6 @@
 
             PACK_DEFINITIONS.forEach(pack => {
                 if (search && !pack.name.toLowerCase().includes(search)) return;
-
                 const packBlooks = ALL_BLOOKS.filter(b => b.packId === pack.id);
                 const unlockedInPack = packBlooks.filter(b => gameState.inventory[b.id] > 0).length;
 
@@ -988,15 +1059,9 @@
                     </div>
 
                     <div class="grid grid-cols-3 gap-1.5 pt-2 border-t border-slate-800">
-                        <button onclick="triggerPackOpen(${pack.id}, 1)" class="px-2 py-1.5 bg-purple-600 hover:bg-purple-500 border-b-2 border-purple-800 rounded-lg font-fredoka text-xs font-bold text-white transition-all active:translate-y-0.5">
-                            1x
-                        </button>
-                        <button onclick="triggerPackOpen(${pack.id}, 5)" class="px-2 py-1.5 bg-purple-700 hover:bg-purple-600 border-b-2 border-purple-900 rounded-lg font-fredoka text-xs font-bold text-white transition-all active:translate-y-0.5">
-                            5x
-                        </button>
-                        <button onclick="triggerPackOpen(${pack.id}, 10)" class="px-2 py-1.5 bg-purple-800 hover:bg-purple-700 border-b-2 border-purple-950 rounded-lg font-fredoka text-xs font-bold text-white transition-all active:translate-y-0.5">
-                            10x
-                        </button>
+                        <button onclick="triggerPackOpen(${pack.id}, 1)" class="px-2 py-1.5 bg-purple-600 hover:bg-purple-500 border-b-2 border-purple-800 rounded-lg font-fredoka text-xs font-bold text-white transition-all active:translate-y-0.5">1x</button>
+                        <button onclick="triggerPackOpen(${pack.id}, 5)" class="px-2 py-1.5 bg-purple-700 hover:bg-purple-600 border-b-2 border-purple-900 rounded-lg font-fredoka text-xs font-bold text-white transition-all active:translate-y-0.5">5x</button>
+                        <button onclick="triggerPackOpen(${pack.id}, 10)" class="px-2 py-1.5 bg-purple-800 hover:bg-purple-700 border-b-2 border-purple-950 rounded-lg font-fredoka text-xs font-bold text-white transition-all active:translate-y-0.5">10x</button>
                     </div>
                 `;
                 container.appendChild(card);
@@ -1008,7 +1073,7 @@
             const totalCost = pack.cost * count;
 
             if (gameState.tokens < totalCost) {
-                showToast(`⚠ You need 🪙 ${totalCost.toLocaleString()} tokens to open ${count}x ${pack.name} Pack!`, 'error');
+                showToast(`⚠ You need 🪙 ${totalCost.toLocaleString()} tokens!`, 'error');
                 return;
             }
 
@@ -1021,7 +1086,6 @@
 
             for (let c = 0; c < count; c++) {
                 const roll = Math.random() * 100;
-
                 let rarity = 'Common';
                 if (roll < 0.001) rarity = 'Supreme';
                 else if (roll < 0.5) rarity = 'Mystical';
@@ -1035,7 +1099,6 @@
                 if (candidateBlooks.length === 0) candidateBlooks = packBlooks;
 
                 const pulled = candidateBlooks[Math.floor(Math.random() * candidateBlooks.length)];
-
                 gameState.inventory[pulled.id] = (gameState.inventory[pulled.id] || 0) + 1;
                 results.push(pulled);
             }
@@ -1047,55 +1110,39 @@
         function showPackOpenModal(pack, results, count) {
             const modal = document.getElementById("modal-pack-open");
             const display = document.getElementById("pack-cards-display");
-            const title = document.getElementById("pack-open-title");
-            const subtitle = document.getElementById("pack-open-subtitle");
-            const againBtn = document.getElementById("pack-again-btn");
-
-            title.innerText = `${pack.name} Pack (${count}x)`;
-            subtitle.innerText = `You opened ${count} pack(s) for 🪙 ${(pack.cost * count).toLocaleString()} tokens!`;
+            document.getElementById("pack-open-title").innerText = `${pack.name} Pack (${count}x)`;
+            document.getElementById("pack-open-subtitle").innerText = `Opened for 🪙 ${(pack.cost * count).toLocaleString()} tokens!`;
             display.innerHTML = "";
 
-            againBtn.onclick = () => {
+            document.getElementById("pack-again-btn").onclick = () => {
                 closeModal('modal-pack-open');
                 triggerPackOpen(pack.id, count);
             };
 
             let pulledAidan = false;
-
             results.forEach((blook) => {
-                if (blook.isSupreme || blook.name === "Aidan") {
-                    pulledAidan = true;
-                }
-
+                if (blook.isSupreme) pulledAidan = true;
                 const cardWrapper = document.createElement("div");
                 cardWrapper.className = `w-32 h-44 sm:w-36 sm:h-48 rounded-2xl p-3 flex flex-col items-center justify-between border-2 text-center transition-all ${
                     blook.isSupreme ? 'aidan-card' : 'bg-slate-950 border-slate-700 glow-' + blook.rarity.toLowerCase()
                 }`;
 
                 const rarityMeta = RARITIES[blook.rarity] || RARITIES.Common;
-
                 cardWrapper.innerHTML = `
-                    <span class="text-xs px-2 py-0.5 rounded-full font-bold ${rarityMeta.color}">
-                        ${blook.rarity}
-                    </span>
+                    <span class="text-xs px-2 py-0.5 rounded-full font-bold ${rarityMeta.color}">${blook.rarity}</span>
                     <div class="text-4xl my-auto">${blook.emoji}</div>
                     <div class="w-full">
                         <div class="font-fredoka font-bold text-xs truncate text-white">${blook.name}</div>
                         <div class="text-[10px] text-slate-400 font-semibold">x${gameState.inventory[blook.id]} owned</div>
                     </div>
                 `;
-
                 display.appendChild(cardWrapper);
             });
 
             modal.classList.remove("hidden");
-
             if (pulledAidan) {
-                playSound('aidanFanfare');
                 confetti({ particleCount: 200, spread: 100, origin: { y: 0.6 } });
-                setTimeout(() => {
-                    document.getElementById("modal-aidan").classList.remove("hidden");
-                }, 600);
+                setTimeout(() => document.getElementById("modal-aidan").classList.remove("hidden"), 600);
             } else if (results.some(r => ['Legendary', 'Chroma', 'Mystical'].includes(r.rarity))) {
                 playSound('pullRare');
                 confetti({ particleCount: 70, spread: 60, origin: { y: 0.6 } });
@@ -1135,16 +1182,13 @@
             let totalDuplicateValue = 0;
             ALL_BLOOKS.forEach(blook => {
                 const count = gameState.inventory[blook.id] || 0;
-                if (count > 1) {
-                    totalDuplicateValue += (count - 1) * blook.sellValue;
-                }
+                if (count > 1) totalDuplicateValue += (count - 1) * blook.sellValue;
             });
             document.getElementById("sell-all-val").innerText = totalDuplicateValue.toLocaleString();
 
             container.innerHTML = "";
-
             if (filtered.length === 0) {
-                container.innerHTML = `<div class="col-span-full py-12 text-center text-slate-500 font-fredoka text-lg">No Blooks match your filters!</div>`;
+                container.innerHTML = `<div class="col-span-full py-12 text-center text-slate-500 font-fredoka text-lg">No Blooks match filters!</div>`;
                 return;
             }
 
@@ -1156,30 +1200,23 @@
                 const card = document.createElement("div");
                 card.className = `relative rounded-2xl p-3 flex flex-col items-center justify-between border-2 text-center transition-all ${
                     isLocked ? 'bg-slate-900/40 border-slate-800 opacity-40 grayscale' :
-                    blook.isSupreme ? 'aidan-card' : 'bg-slate-900 border-slate-800 hover:border-slate-700'
+                    blook.isSupreme ? 'aidan-card' : 'bg-slate-900 border-slate-800'
                 }`;
 
                 card.innerHTML = `
                     ${count > 1 ? `<span class="absolute top-2 right-2 bg-purple-600 text-white font-fredoka font-bold text-[10px] px-2 py-0.5 rounded-full shadow">x${count}</span>` : ''}
-                    
-                    <span class="text-[10px] px-2 py-0.5 rounded-full font-bold ${rarityMeta.color} mb-1">
-                        ${blook.rarity}
-                    </span>
-
+                    <span class="text-[10px] px-2 py-0.5 rounded-full font-bold ${rarityMeta.color} mb-1">${blook.rarity}</span>
                     <div class="text-3xl my-2">${isLocked ? '❓' : blook.emoji}</div>
-
                     <div class="w-full">
                         <div class="font-fredoka font-bold text-xs truncate text-white">${isLocked ? 'Locked' : blook.name}</div>
                         <div class="text-[9px] text-slate-400 font-semibold truncate">${blook.packName} Pack</div>
                     </div>
-
                     ${!isLocked && count > 1 ? `
                         <button onclick="sellDuplicate(${blook.id})" class="mt-2 w-full py-1 bg-emerald-600/80 hover:bg-emerald-500 rounded-lg text-[10px] font-fredoka font-bold text-white transition-all">
                             Sell 1 (+🪙${blook.sellValue})
                         </button>
                     ` : ''}
                 `;
-
                 container.appendChild(card);
             });
         }
@@ -1187,14 +1224,12 @@
         function sellDuplicate(blookId) {
             const count = gameState.inventory[blookId] || 0;
             if (count <= 1) return;
-
             const blook = ALL_BLOOKS.find(b => b.id === blookId);
             gameState.inventory[blookId]--;
             gameState.tokens += blook.sellValue;
-
             saveState();
             playSound('click');
-            showToast(`🪙 Sold 1 duplicate of <strong>${blook.name}</strong> for +${blook.sellValue.toLocaleString()} tokens!`, 'success');
+            showToast(`🪙 Sold duplicate of <strong>${blook.name}</strong>!`, 'success');
             renderInventory();
         }
 
@@ -1213,14 +1248,14 @@
             });
 
             if (totalSold === 0) {
-                showToast("ℹ️ No duplicate Blooks available to sell!", 'info');
+                showToast("ℹ️ No duplicate Blooks available!", 'info');
                 return;
             }
 
             gameState.tokens += totalTokensEarned;
             saveState();
             playSound('click');
-            showToast(`🎉 Sold ${totalSold} duplicate Blooks for +🪙 ${totalTokensEarned.toLocaleString()} tokens!`, 'success');
+            showToast(`🎉 Sold ${totalSold} duplicates for +🪙 ${totalTokensEarned.toLocaleString()} tokens!`, 'success');
             renderInventory();
         }
 
@@ -1228,17 +1263,15 @@
         const WHEEL_REWARDS = [1000, 2500, 5000, 10000, 25000, 50000, 100000, 250000, 500000, 1000000];
         const WHEEL_COLORS = ["#ef4444", "#3b82f6", "#10b981", "#f59e0b", "#8b5cf6", "#ec4899", "#06b6d4", "#eab308", "#6366f1", "#f43f5e"];
         let isSpinning = false;
-        let wheelTimerInterval = null;
 
         function initWheel() {
             const canvas = document.getElementById("wheel-canvas");
             const ctx = canvas.getContext("2d");
-            const numSlices = WHEEL_REWARDS.length;
-            const sliceAngle = (2 * Math.PI) / numSlices;
+            const sliceAngle = (2 * Math.PI) / WHEEL_REWARDS.length;
 
             ctx.clearRect(0, 0, 320, 320);
 
-            for (let i = 0; i < numSlices; i++) {
+            for (let i = 0; i < WHEEL_REWARDS.length; i++) {
                 const angle = i * sliceAngle;
                 ctx.beginPath();
                 ctx.fillStyle = WHEEL_COLORS[i % WHEEL_COLORS.length];
@@ -1253,14 +1286,11 @@
                 ctx.fillStyle = "white";
                 ctx.font = "bold 13px Nunito, sans-serif";
                 ctx.textAlign = "right";
-                const valStr = WHEEL_REWARDS[i] >= 1000000 ? '1M 🪙' : (WHEEL_REWARDS[i] / 1000) + 'K 🪙';
-                ctx.fillText(valStr, 140, 4);
+                ctx.fillText(WHEEL_REWARDS[i] >= 1000000 ? '1M 🪙' : (WHEEL_REWARDS[i] / 1000) + 'K 🪙', 140, 4);
                 ctx.restore();
             }
 
             checkWheelCooldown();
-            if (wheelTimerInterval) clearInterval(wheelTimerInterval);
-            wheelTimerInterval = setInterval(checkWheelCooldown, 1000);
         }
 
         function checkWheelCooldown() {
@@ -1273,28 +1303,16 @@
                 const remainingMs = oneHour - (now - gameState.lastSpinTimestamp);
                 const mins = Math.floor(remainingMs / (1000 * 60));
                 const secs = Math.floor((remainingMs % (1000 * 60)) / 1000);
-                
                 spinBtn.disabled = true;
                 statusText.innerText = `⏳ Hourly spin available in ${mins}m ${secs}s`;
-                statusText.className = "font-fredoka text-base font-bold text-amber-400";
             } else {
                 spinBtn.disabled = false;
                 statusText.innerText = "✨ Wheel is Ready to Spin!";
-                statusText.className = "font-fredoka text-base font-bold text-emerald-400";
             }
         }
 
         function spinWheel() {
             if (isSpinning) return;
-
-            const now = Date.now();
-            const oneHour = 60 * 60 * 1000;
-
-            if (gameState.lastSpinTimestamp && (now - gameState.lastSpinTimestamp < oneHour)) {
-                showToast("⏳ Hourly spin is on cooldown!", 'error');
-                return;
-            }
-
             isSpinning = true;
             document.getElementById("spin-btn").disabled = true;
 
@@ -1304,41 +1322,382 @@
 
             const sliceAngle = 360 / WHEEL_REWARDS.length;
             const targetRotation = (360 * 8) + (360 - (winningIndex * sliceAngle) - (sliceAngle / 2));
-
             canvas.style.transform = `rotate(${targetRotation}deg)`;
-
-            let ticks = 0;
-            const tickInterval = setInterval(() => {
-                if (ticks < 25) {
-                    playSound('spinTick');
-                    ticks++;
-                } else {
-                    clearInterval(tickInterval);
-                }
-            }, 120);
 
             setTimeout(() => {
                 isSpinning = false;
                 gameState.tokens += reward;
                 gameState.lastSpinTimestamp = Date.now();
-
                 saveState();
                 checkWheelCooldown();
-
-                playSound('pullRare');
                 confetti({ particleCount: 100, spread: 80, origin: { y: 0.6 } });
-                showToast(`🎉 WHEEL WIN! You earned +🪙 ${reward.toLocaleString()} Tokens!`, 'success');
-
-                setTimeout(() => {
-                    canvas.style.transition = 'none';
-                    canvas.style.transform = 'rotate(0deg)';
-                    setTimeout(() => {
-                        canvas.style.transition = 'transform 4000ms cubic-bezier(0.15, 0.99, 0.18, 0.99)';
-                    }, 50);
-                }, 1000);
-
+                showToast(`🎉 WHEEL WIN! Won +🪙 ${reward.toLocaleString()} Tokens!`, 'success');
+                canvas.style.transform = 'rotate(0deg)';
             }, 4000);
         }
+
+        // ==========================================
+        // MINI-GAMES ARCADE ENGINE
+        // ==========================================
+        let currentGameMode = null;
+        let currentEarnedTokens = 0;
+
+        function launchGame(gameId) {
+            if (isOnCooldown()) {
+                const remainingSecs = getCooldownRemainingSecs();
+                showToast(`⚠ 10 Questions limit reached! Cooldown active: ${formatGameTime(remainingSecs)}.`, "error");
+                return;
+            }
+
+            currentGameMode = gameId;
+            currentEarnedTokens = 0;
+            document.getElementById("minigame-hub").classList.add("hidden");
+            document.getElementById("active-game-wrapper").classList.remove("hidden");
+            document.querySelectorAll(".game-view").forEach(v => v.classList.add("hidden"));
+
+            const titleMap = {
+                'dl-down': '🧗‍♂️ Don\'t Look Down',
+                'gold-quest': '👑 Gold Quest',
+                'crypto-hack': '💻 Crypto Hack'
+            };
+            document.getElementById("active-game-title").innerText = titleMap[gameId] || "Mini Game";
+            document.getElementById(`view-${gameId}`).classList.remove("hidden");
+
+            updateArcadeHubUI();
+
+            if (gameId === 'dl-down') resetDLGame();
+            if (gameId === 'gold-quest') startGoldQuest();
+            if (gameId === 'crypto-hack') startCryptoHack();
+        }
+
+        function returnToGameHub() {
+            document.getElementById("active-game-wrapper").classList.add("hidden");
+            document.getElementById("quiz-modal").classList.add("hidden");
+            document.getElementById("claim-screen").classList.add("hidden");
+            document.getElementById("minigame-hub").classList.remove("hidden");
+            currentGameMode = null;
+            updateGlobalHeader();
+            updateArcadeHubUI();
+        }
+
+        function finishGameRun(tokensEarned, titleReason = "🚫 10 Questions Reached!") {
+            currentEarnedTokens = tokensEarned;
+            gameState.tokens += tokensEarned;
+            saveState();
+
+            document.getElementById("claim-title-text").innerText = titleReason;
+            document.getElementById("claim-tokens-val").innerText = `+${tokensEarned.toLocaleString()} 🪙`;
+            document.getElementById("claim-screen").classList.remove("hidden");
+            confetti({ particleCount: 80, spread: 70, origin: { y: 0.6 } });
+        }
+
+        // SHARED TRIVIA GENERATOR
+        function generateTriviaQuestion() {
+            const num1 = Math.floor(Math.random() * 20) + 5;
+            const num2 = Math.floor(Math.random() * 20) + 5;
+            const isAdd = Math.random() > 0.5;
+            const answer = isAdd ? num1 + num2 : num1 * num2;
+            const qText = isAdd ? `${num1} + ${num2} = ?` : `${num1} × ${num2} = ?`;
+
+            let choices = [answer];
+            while (choices.length < 4) {
+                let dummy = answer + (Math.floor(Math.random() * 12) - 6);
+                if (dummy >= 0 && !choices.includes(dummy)) choices.push(dummy);
+            }
+            choices.sort(() => Math.random() - 0.5);
+
+            return { question: qText, answer: answer, choices: choices };
+        }
+
+        function openQuiz(gameContext) {
+            if (isOnCooldown()) {
+                showToast("⚠ Question limit reached! 30-minute cooldown active.", "error");
+                return;
+            }
+
+            const modal = document.getElementById("quiz-modal");
+            const q = generateTriviaQuestion();
+            document.getElementById("shared-question-text").innerText = q.question;
+            
+            const grid = document.getElementById("shared-options-grid");
+            grid.innerHTML = "";
+
+            q.choices.forEach(c => {
+                const btn = document.createElement("button");
+                btn.className = "btn-opt";
+                btn.innerText = c;
+                btn.onclick = () => {
+                    modal.classList.add("hidden");
+                    registerQuestionAnswered();
+                    if (c === q.answer) {
+                        if (gameContext === 'dl-down') energy = Math.min(300, energy + 120);
+                        playSound('pullNormal');
+                    }
+                };
+                grid.appendChild(btn);
+            });
+
+            modal.classList.remove("hidden");
+        }
+
+        // 1. DON'T LOOK DOWN GAME LOGIC
+        const dlCanvas = document.getElementById('gameCanvas');
+        const dlCtx = dlCanvas.getContext('2d');
+        let energy = 200;
+        let peakHeight = 0;
+        let dlCoins = 0;
+        let dlEnded = false;
+        const keys = { left: false, right: false, up: false };
+
+        const player = { x: 380, y: 480, width: 28, height: 38, vx: 0, vy: 0, speed: 4.2, jumpForce: -9.5, jumpsLeft: 2 };
+        let dlPlatforms = [];
+
+        function resetDLGame() {
+            energy = 200;
+            peakHeight = 0;
+            dlCoins = 0;
+            dlEnded = false;
+            player.x = 380;
+            player.y = 480;
+            player.vx = 0;
+            player.vy = 0;
+            
+            dlPlatforms = [{ x: 0, y: 520, width: 800, height: 30, isGround: true }];
+            let curY = 430;
+            while (curY > -50000) {
+                const w = Math.random() * 80 + 70;
+                dlPlatforms.push({ x: Math.random() * (800 - w), y: curY, width: w, height: 16 });
+                curY -= (Math.random() * 45 + 70);
+            }
+        }
+
+        window.addEventListener('keydown', (e) => {
+            if (currentGameMode !== 'dl-down' || dlEnded) return;
+            if (e.key === 'ArrowLeft' || e.key === 'a') keys.left = true;
+            if (e.key === 'ArrowRight' || e.key === 'd') keys.right = true;
+            if ((e.key === 'ArrowUp' || e.key === 'w' || e.key === ' ') && player.jumpsLeft > 0) {
+                player.vy = player.jumpForce;
+                player.jumpsLeft--;
+                energy = Math.max(0, energy - 8);
+            }
+        });
+
+        window.addEventListener('keyup', (e) => {
+            if (e.key === 'ArrowLeft' || e.key === 'a') keys.left = false;
+            if (e.key === 'ArrowRight' || e.key === 'd') keys.right = false;
+        });
+
+        function updateDLGame() {
+            if (currentGameMode !== 'dl-down' || dlEnded) return;
+
+            if (keys.left) player.vx = -player.speed;
+            else if (keys.right) player.vx = player.speed;
+            else player.vx = 0;
+
+            player.vy += 0.35;
+            player.x += player.vx;
+            player.y += player.vy;
+
+            dlPlatforms.forEach(p => {
+                if (player.vy > 0 && player.x + player.width > p.x && player.x < p.x + p.width && player.y + player.height >= p.y && player.y + player.height <= p.y + p.height + player.vy) {
+                    player.y = p.y - player.height;
+                    player.vy = 0;
+                    player.jumpsLeft = 2;
+                }
+            });
+
+            const currentMeters = Math.max(0, Math.floor((520 - player.y) / 20));
+            if (currentMeters > peakHeight) {
+                peakHeight = currentMeters;
+                dlCoins = peakHeight * 2;
+            }
+
+            if (player.y > 600) {
+                dlEnded = true;
+                finishGameRun(dlCoins, "🧗‍♂️ Climb Completed!");
+            }
+
+            document.getElementById('height-val').innerText = currentMeters;
+            document.getElementById('coin-val').innerText = dlCoins;
+            document.getElementById('energy-bar').style.width = `${(energy / 300) * 100}%`;
+        }
+
+        function renderDLGame() {
+            if (currentGameMode !== 'dl-down') return;
+            dlCtx.clearRect(0, 0, 800, 550);
+
+            dlCtx.save();
+            const camY = player.y - 300;
+            dlCtx.translate(0, -camY);
+
+            dlPlatforms.forEach(p => {
+                dlCtx.fillStyle = p.isGround ? '#334155' : '#10b981';
+                dlCtx.fillRect(p.x, p.y, p.width, p.height);
+            });
+
+            dlCtx.fillStyle = '#38bdf8';
+            dlCtx.fillRect(player.x, player.y, player.width, player.height);
+            dlCtx.restore();
+        }
+
+        // 2. GOLD QUEST GAME LOGIC
+        let gqRound = 1;
+        let gqGold = 0;
+        let gqCurrentQ = null;
+
+        function startGoldQuest() {
+            gqRound = 1;
+            gqGold = 0;
+            nextGQRound();
+        }
+
+        function nextGQRound() {
+            if (isOnCooldown()) return;
+
+            document.getElementById("gq-round").innerText = gqRound;
+            document.getElementById("gq-gold").innerText = gqGold.toLocaleString();
+            document.getElementById("gq-chest-box").classList.add("hidden");
+            document.getElementById("gq-question-box").classList.remove("hidden");
+
+            gqCurrentQ = generateTriviaQuestion();
+            document.getElementById("gq-question-text").innerText = gqCurrentQ.question;
+            const opts = document.getElementById("gq-options");
+            opts.innerHTML = "";
+
+            gqCurrentQ.choices.forEach(c => {
+                const btn = document.createElement("button");
+                btn.className = "btn-opt";
+                btn.innerText = c;
+                btn.onclick = () => {
+                    registerQuestionAnswered();
+                    if (c === gqCurrentQ.answer) {
+                        playSound('pullNormal');
+                        document.getElementById("gq-question-box").classList.add("hidden");
+                        document.getElementById("gq-chest-box").classList.remove("hidden");
+                    } else {
+                        showToast("❌ Incorrect!", "error");
+                        if (!isOnCooldown()) {
+                            gqRound++;
+                            nextGQRound();
+                        }
+                    }
+                };
+                opts.appendChild(btn);
+            });
+        }
+
+        function openChest(idx) {
+            const outcomes = [
+                { text: "+500 Tokens", val: 500 },
+                { text: "+1,500 Tokens", val: 1500 },
+                { text: "2x Gold Multiplier!", mult: 2 },
+                { text: "+3,000 Tokens!", val: 3000 }
+            ];
+            const choice = outcomes[Math.floor(Math.random() * outcomes.length)];
+            if (choice.mult) gqGold = (gqGold || 500) * choice.mult;
+            else gqGold += choice.val;
+
+            showToast(`🎁 Chest Outcome: ${choice.text}`, "success");
+            
+            if (!isOnCooldown()) {
+                gqRound++;
+                nextGQRound();
+            }
+        }
+
+        // 3. CRYPTO HACK GAME LOGIC
+        let chRound = 1;
+        let chCrypto = 0;
+        let chCurrentQ = null;
+
+        function startCryptoHack() {
+            chRound = 1;
+            chCrypto = 0;
+            nextCHRound();
+        }
+
+        function nextCHRound() {
+            if (isOnCooldown()) return;
+
+            document.getElementById("ch-round").innerText = chRound;
+            document.getElementById("ch-crypto").innerText = chCrypto.toLocaleString();
+            document.getElementById("ch-hack-box").classList.add("hidden");
+            document.getElementById("ch-question-box").classList.remove("hidden");
+
+            chCurrentQ = generateTriviaQuestion();
+            document.getElementById("ch-question-text").innerText = chCurrentQ.question;
+            const opts = document.getElementById("ch-options");
+            opts.innerHTML = "";
+
+            chCurrentQ.choices.forEach(c => {
+                const btn = document.createElement("button");
+                btn.className = "btn-opt";
+                btn.innerText = c;
+                btn.onclick = () => {
+                    registerQuestionAnswered();
+                    if (c === chCurrentQ.answer) {
+                        playSound('pullNormal');
+                        document.getElementById("ch-question-box").classList.add("hidden");
+                        showCHTargets();
+                    } else {
+                        showToast("❌ Password Hack Failed!", "error");
+                        if (!isOnCooldown()) {
+                            chRound++;
+                            nextCHRound();
+                        }
+                    }
+                };
+                opts.appendChild(btn);
+            });
+        }
+
+        function showCHTargets() {
+            const box = document.getElementById("ch-hack-box");
+            const grid = document.getElementById("ch-targets");
+            grid.innerHTML = "";
+
+            for (let i = 0; i < 3; i++) {
+                const btn = document.createElement("button");
+                btn.className = "p-4 bg-slate-950 hover:bg-cyan-950 border border-cyan-500/50 rounded-xl font-fredoka font-bold text-cyan-300";
+                btn.innerText = `Target #${i + 1}`;
+                btn.onclick = () => {
+                    const gained = Math.floor(Math.random() * 2000) + 1000;
+                    chCrypto += gained;
+                    showToast(`⚡ Hacked +${gained} Crypto!`, "success");
+                    
+                    if (!isOnCooldown()) {
+                        chRound++;
+                        nextCHRound();
+                    }
+                };
+                grid.appendChild(btn);
+            }
+            box.classList.remove("hidden");
+        }
+
+        // MAIN LOOP
+        function mainLoop() {
+            if (currentGameMode === 'dl-down') {
+                updateDLGame();
+                renderDLGame();
+            }
+            requestAnimationFrame(mainLoop);
+        }
+
+        // REAL-TIME COOLDOWN REFRESH TIMER (TICKS EVERY SECOND)
+        setInterval(() => {
+            if (activeTab === 'minigame') {
+                updateArcadeHubUI();
+            }
+        }, 1000);
+
+        // INITIALIZATION
+        window.addEventListener("DOMContentLoaded", () => {
+            loadState();
+            renderShop();
+            initWheel();
+            mainLoop();
+        });
 
         function closeModal(modalId) {
             playSound('click');
@@ -1352,305 +1711,11 @@
         }
 
         function confirmResetModal() {
-            const modalContainer = document.createElement("div");
-            modalContainer.className = "fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center p-4";
-            modalContainer.innerHTML = `
-                <div class="bg-slate-900 border border-red-500/50 p-6 rounded-3xl max-w-sm w-full text-center space-y-4">
-                    <h3 class="font-fredoka text-xl font-bold text-red-400">Reset All Data?</h3>
-                    <p class="text-xs text-slate-300">Are you sure you want to erase all Blooks and Tokens? This cannot be undone.</p>
-                    <div class="flex gap-2 pt-2">
-                        <button id="reset-yes-btn" class="flex-1 py-2 bg-red-600 hover:bg-red-500 rounded-xl font-fredoka font-bold text-white">Yes, Reset</button>
-                        <button id="reset-no-btn" class="flex-1 py-2 bg-slate-800 hover:bg-slate-700 rounded-xl font-fredoka font-bold text-slate-300">Cancel</button>
-                    </div>
-                </div>
-            `;
-            document.body.appendChild(modalContainer);
-
-            document.getElementById("reset-yes-btn").onclick = () => {
-                localStorage.removeItem("blooket_sim_1k_v1");
+            if (confirm("Reset all game data back to default state?")) {
+                localStorage.removeItem("blooket_sim_1k_v2");
                 location.reload();
-            };
-            document.getElementById("reset-no-btn").onclick = () => {
-                modalContainer.remove();
-            };
-        }
-
-        // ==========================================
-        // MINI GAME CODE ("DON'T LOOK DOWN")
-        // ==========================================
-        const gameCanvas = document.getElementById('gameCanvas');
-        const ctx = gameCanvas.getContext('2d');
-
-        const gravity = 0.35;
-        let energy = 200;
-        const maxEnergy = 300;
-        let peakHeight = 0;
-        let currentCoins = 0;
-        let isQuizOpen = false;
-        let runEnded = false;
-
-        const keys = { left: false, right: false, up: false };
-
-        const player = {
-            x: 380,
-            y: 520,
-            width: 28,
-            height: 38,
-            vx: 0,
-            vy: 0,
-            speed: 4.2,
-            jumpForce: -9.5,
-            grounded: false,
-            jumpsLeft: 2,
-            color: '#4ecca3'
-        };
-
-        let cameraY = 0;
-        const groundLevelY = 560;
-        let platforms = [];
-
-        function initPlatforms() {
-            platforms = [];
-            platforms.push({ x: 0, y: groundLevelY, width: 800, height: 40, isGround: true });
-
-            let curY = groundLevelY - 90;
-            while (curY > -50000) {
-                const width = Math.random() * 80 + 70;
-                const x = Math.random() * (gameCanvas.width - width);
-                platforms.push({ x, y: curY, width, height: 16 });
-                curY -= (Math.random() * 45 + 70);
             }
         }
-
-        window.addEventListener('keydown', (e) => {
-            if (document.activeElement && (document.activeElement.tagName === 'INPUT' || document.activeElement.tagName === 'SELECT')) return;
-            if (activeTab !== 'minigame') return;
-            if (isQuizOpen || runEnded) return;
-
-            if (e.key === 'ArrowLeft' || e.key === 'a' || e.key === 'A') keys.left = true;
-            if (e.key === 'ArrowRight' || e.key === 'd' || e.key === 'D') keys.right = true;
-            if ((e.key === 'ArrowUp' || e.key === 'w' || e.key === 'W' || e.key === ' ') && !keys.up) {
-                e.preventDefault();
-                keys.up = true;
-                jump();
-            }
-        });
-
-        window.addEventListener('keyup', (e) => {
-            if (document.activeElement && (document.activeElement.tagName === 'INPUT' || document.activeElement.tagName === 'SELECT')) return;
-            if (e.key === 'ArrowLeft' || e.key === 'a' || e.key === 'A') keys.left = false;
-            if (e.key === 'ArrowRight' || e.key === 'd' || e.key === 'D') keys.right = false;
-            if (e.key === 'ArrowUp' || e.key === 'w' || e.key === 'W' || e.key === ' ') keys.up = false;
-        });
-
-        function jump() {
-            if (energy <= 0) return;
-
-            if (player.jumpsLeft > 0) {
-                player.vy = player.jumpForce;
-                player.jumpsLeft--;
-                player.grounded = false;
-                energy = Math.max(0, energy - 8);
-                playSound('spinTick');
-            }
-        }
-
-        let currentAnswer = 0;
-
-        function openQuiz() {
-            if (isQuizOpen || runEnded) return;
-            isQuizOpen = true;
-            document.getElementById('question-modal').style.display = 'block';
-            generateQuestion();
-        }
-
-        function generateQuestion() {
-            const num1 = Math.floor(Math.random() * 25) + 5;
-            const num2 = Math.floor(Math.random() * 25) + 5;
-            const isAddition = Math.random() > 0.4;
-
-            if (isAddition) {
-                currentAnswer = num1 + num2;
-                document.getElementById('question-text').innerText = `${num1} + ${num2} = ?`;
-            } else {
-                currentAnswer = num1 * Math.floor(Math.random() * 5 + 2);
-                const factor = currentAnswer / num1;
-                document.getElementById('question-text').innerText = `${currentAnswer} ÷ ${num1} = ?`;
-                currentAnswer = factor;
-            }
-
-            const optsGrid = document.getElementById('options-grid');
-            optsGrid.innerHTML = '';
-
-            let choices = [currentAnswer];
-            while (choices.length < 4) {
-                let dummy = currentAnswer + (Math.floor(Math.random() * 10) - 5);
-                if (dummy !== currentAnswer && dummy >= 0 && !choices.includes(dummy)) {
-                    choices.push(dummy);
-                }
-            }
-            choices.sort(() => Math.random() - 0.5);
-
-            choices.forEach(opt => {
-                const btn = document.createElement('button');
-                btn.className = 'btn-opt';
-                btn.innerText = opt;
-                btn.onclick = () => submitAnswer(opt);
-                optsGrid.appendChild(btn);
-            });
-        }
-
-        function submitAnswer(chosen) {
-            if (chosen === currentAnswer) {
-                energy = Math.min(maxEnergy, energy + 120);
-                playSound('pullNormal');
-            }
-            document.getElementById('question-modal').style.display = 'none';
-            isQuizOpen = false;
-        }
-
-        function updateMiniGame() {
-            if (isQuizOpen || runEnded || activeTab !== 'minigame') return;
-
-            if (energy > 0) {
-                if (keys.left) {
-                    player.vx = -player.speed;
-                    energy -= 0.08;
-                } else if (keys.right) {
-                    player.vx = player.speed;
-                    energy -= 0.08;
-                } else {
-                    player.vx = 0;
-                }
-            } else {
-                player.vx = 0;
-            }
-
-            player.vy += gravity;
-            player.x += player.vx;
-            player.y += player.vy;
-
-            if (player.x < -player.width) player.x = gameCanvas.width;
-            if (player.x > gameCanvas.width) player.x = -player.width;
-
-            player.grounded = false;
-            platforms.forEach(p => {
-                if (
-                    player.vy > 0 &&
-                    player.x + player.width > p.x &&
-                    player.x < p.x + p.width &&
-                    player.y + player.height >= p.y &&
-                    player.y + player.height <= p.y + p.height + player.vy
-                ) {
-                    player.y = p.y - player.height;
-                    player.vy = 0;
-                    player.grounded = true;
-                    player.jumpsLeft = 2;
-                }
-            });
-
-            const currentMeters = Math.max(0, Math.floor((groundLevelY - player.y) / 20));
-            if (currentMeters > peakHeight) {
-                peakHeight = currentMeters;
-                currentCoins = peakHeight;
-            }
-
-            const targetCamY = player.y - gameCanvas.height * 0.6;
-            if (targetCamY < cameraY) {
-                cameraY += (targetCamY - cameraY) * 0.1;
-            } else {
-                cameraY += (targetCamY - cameraY) * 0.03;
-            }
-
-            if (player.y > cameraY + gameCanvas.height + 150) {
-                finishRun();
-            }
-
-            document.getElementById('height-val').innerText = currentMeters;
-            document.getElementById('coin-val').innerText = currentCoins;
-            document.getElementById('total-balance-val').innerText = gameState.tokens.toLocaleString();
-            document.getElementById('energy-bar').style.width = `${(energy / maxEnergy) * 100}%`;
-        }
-
-        function renderMiniGame() {
-            if (activeTab !== 'minigame') return;
-
-            ctx.clearRect(0, 0, gameCanvas.width, gameCanvas.height);
-
-            ctx.save();
-            ctx.translate(0, -cameraY);
-
-            platforms.forEach(p => {
-                if (p.isGround) {
-                    ctx.fillStyle = '#2d4059';
-                } else {
-                    ctx.fillStyle = '#4ecca3';
-                }
-                ctx.beginPath();
-                ctx.roundRect(p.x, p.y, p.width, p.height, 4);
-                ctx.fill();
-            });
-
-            ctx.fillStyle = player.color;
-            ctx.shadowColor = '#4ecca3';
-            ctx.shadowBlur = 10;
-            ctx.beginPath();
-            ctx.roundRect(player.x, player.y, player.width, player.height, 6);
-            ctx.fill();
-            ctx.shadowBlur = 0;
-
-            ctx.fillStyle = '#fff';
-            ctx.fillRect(player.x + (player.vx < 0 ? 4 : 16), player.y + 8, 6, 6);
-
-            ctx.restore();
-        }
-
-        function finishRun() {
-            runEnded = true;
-            
-            // DIRECTLY ADD EARNED COINS TO MAIN BALANCE
-            gameState.tokens += currentCoins;
-            saveState();
-
-            playSound('pullRare');
-            confetti({ particleCount: 80, spread: 70, origin: { y: 0.6 } });
-
-            document.getElementById('final-height').innerText = peakHeight;
-            document.getElementById('final-coins').innerText = currentCoins;
-            document.getElementById('new-total-coins').innerText = gameState.tokens.toLocaleString();
-            document.getElementById('total-balance-val').innerText = gameState.tokens.toLocaleString();
-            document.getElementById('claim-screen').style.display = 'flex';
-        }
-
-        function resetGame() {
-            energy = 200;
-            peakHeight = 0;
-            currentCoins = 0;
-            cameraY = 0;
-            runEnded = false;
-            player.x = 380;
-            player.y = 520;
-            player.vx = 0;
-            player.vy = 0;
-            initPlatforms();
-            document.getElementById('claim-screen').style.display = 'none';
-            document.getElementById('total-balance-val').innerText = gameState.tokens.toLocaleString();
-        }
-
-        function gameLoop() {
-            updateMiniGame();
-            renderMiniGame();
-            requestAnimationFrame(gameLoop);
-        }
-
-        // --- GAME INITIALIZATION ---
-        window.addEventListener("DOMContentLoaded", () => {
-            loadState();
-            renderShop();
-            initWheel();
-            initPlatforms();
-            gameLoop();
-        });
     </script>
 </body>
 </html>
